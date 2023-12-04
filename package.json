@@ -1,0 +1,17 @@
+{
+  "name": "advent2023",
+  "version": "0.0.0",
+  "description": "Advent of Code 2023",
+  "main": "dist/main.js",
+  "scripts": {
+    "go": "tsc && node dist/main.js",
+    "lint": "eslint . --ext .ts",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "James Allen",
+  "license": "ISC",
+  "devDependencies": {
+    "eslint": "^8.55.0",
+    "typescript": "^5.1.6"
+  }
+}
