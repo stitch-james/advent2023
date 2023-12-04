@@ -11,6 +11,7 @@
   "author": "James Allen",
   "license": "ISC",
   "devDependencies": {
+    "@types/node": "^20.10.3",
     "eslint": "^8.55.0",
     "typescript": "^5.1.6"
   }
