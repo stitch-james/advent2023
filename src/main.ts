@@ -4,7 +4,9 @@ const days = [
   day01,
 ];
 
-const day = days[parseInt(process.argv[2]) - 1];
+const dayInt = parseInt(process.argv[2]);
+const day = days[dayInt - 1];
 
-day.part1();
-day.part2();
+console.log(`Day ${dayInt}`);
+console.log(`Part 1: ${day.part1()}`);
+console.log(`Part 2: ${day.part2()}`);
