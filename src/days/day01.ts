@@ -2,13 +2,13 @@ import { readFileSync } from "fs";
 
 export function part1(): number {
   const data = readData();
-  const calibrationValues = data.map(line => getCalibrationValueDigits(line));
+  const calibrationValues = data.map(line => getCalibrationValue(line));
   return calibrationValues.reduce((a, c) => a + c, 0);
 }
 
 export function part2(): number {
   const data = readData();
-  const calibrationValues = data.map(line => getCalibrationValueAll(line));
+  const calibrationValues = data.map(line => getCalibrationValue(line, true));
   return calibrationValues.reduce((a, c) => a + c, 0);
 }
 
@@ -16,26 +16,17 @@ function readData(): string[] {
   return readFileSync('src/data/day01.txt', 'utf8').trim().split('\n');
 }
 
-function getCalibrationValueDigits(line: string): number {
+function getCalibrationValue(line: string, includeWords: boolean = false): number {
   const digits = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
   let first: string;
   let last: string;
   for (let i = 0; i < line.length; i++) {
-    if (digits.includes(line[i])) {
-      if (!first) {
-        first = line[i];
-      }
-      last = line[i];
+    const lineSlice = line.slice(i);
+    let match: string;
+    match = matchDigit(lineSlice);
+    if (includeWords) {
+      match = match || matchWord(lineSlice);
     }
-  }
-  return parseInt([first, last].join(''));
-}
-
-function getCalibrationValueAll(line: string): number {
-  let first: string;
-  let last: string;
-  for (let i = 0; i < line.length; i++) {
-    const match = matchNumber(line.slice(i));
     if (match) {
       if (!first) {
         first = match;
@@ -46,8 +37,14 @@ function getCalibrationValueAll(line: string): number {
   return parseInt([first, last].join(''));
 }
 
-function matchNumber(lineSlice: string): string | undefined {
+function matchDigit(lineSlice: string): string | undefined {
   const digits = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
+  if (digits.includes(lineSlice[0])) {
+    return lineSlice[0];
+  }
+}
+
+function matchWord(lineSlice: string): string | undefined {
   const numbers = [
     {name: 'zero', value: '0'},
     {name: 'one', value: '1'},
@@ -60,9 +57,6 @@ function matchNumber(lineSlice: string): string | undefined {
     {name: 'eight', value: '8'},
     {name: 'nine', value: '9'},
   ];
-  if (digits.includes(lineSlice[0])) {
-    return lineSlice[0];
-  }
   for (let n = 0; n < numbers.length; n++) {
     const number = numbers[n];
     if (lineSlice.startsWith(number.name)) {
