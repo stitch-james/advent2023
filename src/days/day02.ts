@@ -1,55 +1,56 @@
 import { readFileSync } from "fs";
 
-interface Handful {
-  red: number,
-  green: number,
-  blue: number,
+class Handful {
+  red: number = 0
+  green: number = 0
+  blue: number = 0
+
+  constructor(handfulStr: string) {
+    this.red = 0;
+    this.green = 0;
+    this.blue = 0;
+    const redMatch = handfulStr.match(/(\d+) red/);
+    if (redMatch) {
+      this.red = parseInt(redMatch[1]);
+    }
+    const greenMatch = handfulStr.match(/(\d+) green/);
+    if (greenMatch) {
+      this.green = parseInt(greenMatch[1]);
+    }
+    const blueMatch = handfulStr.match(/(\d+) blue/);
+    if (blueMatch) {
+      this.blue = parseInt(blueMatch[1]);
+    }
+  
+  }
 }
 
-interface Bag {
-  red: number,
-  green: number,
-  blue: number,
+class Bag {
+  red: number
+  green: number
+  blue: number
+
+  constructor({red, green, blue}: {red: number, green: number, blue: number}) {
+    this.red = red;
+    this.green = green;
+    this.blue = blue;
+  }
 }
 
-interface Game {
-  id: number,
-  handfuls: Handful[],
+class Game {
+  id: number
+  handfuls: Handful[]
+
+  constructor(line: string) {
+    const [complete, idStr, handfulsStr] = line.match(/Game (\d+): (.*)/);
+    this.id = parseInt(idStr);
+    this.handfuls = handfulsStr.split('; ').map(h => new Handful(h));
+  }
 }
 
 function readData(): Game[] {
   const lines = readFileSync('src/data/day02.txt', 'utf8').trim().split('\n');
-  return lines.map(readLine);
-}
-
-function readLine(line: string): Game {
-  const [complete, idStr, handfulsStr] = line.match(/Game (\d+): (.*)/);
-  const handfuls = handfulsStr.split('; ').map(readHandful);
-  return {
-    id: parseInt(idStr),
-    handfuls,
-  }
-}
-
-function readHandful(handfulStr: string): Handful {
-  const result = {
-    red: 0,
-    green: 0,
-    blue: 0,
-  };
-  const redMatch = handfulStr.match(/(\d+) red/);
-  if (redMatch) {
-    result.red = parseInt(redMatch[1]);
-  }
-  const blueMatch = handfulStr.match(/(\d+) blue/);
-  if (blueMatch) {
-    result.blue = parseInt(blueMatch[1]);
-  }
-  const greenMatch = handfulStr.match(/(\d+) green/);
-  if (greenMatch) {
-    result.green = parseInt(greenMatch[1]);
-  }
-  return result;
+  return lines.map(l => new Game(l));
 }
 
 function isPossible(bag: Bag, game: Game): boolean {
@@ -75,11 +76,11 @@ function power(game: Game): number {
 
 export function part1(): number {
   const games = readData();
-  const bag = {
+  const bag = new Bag({
     red: 12,
     green: 13,
     blue: 14,
-  };
+  });
   return (
     games
       .filter(game => isPossible(bag, game))
