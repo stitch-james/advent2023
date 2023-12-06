@@ -66,16 +66,10 @@ function isPossible(bag: Bag, game: Game): boolean {
 
 function power(game: Game): number {
   const minimum = {
-    red: 0,
-    green: 0,
-    blue: 0,
+    red: Math.max(...game.handfuls.map(h => h.red)),
+    blue: Math.max(...game.handfuls.map(h => h.blue)),
+    green: Math.max(...game.handfuls.map(h => h.green)),
   };
-  for (let i = 0; i < game.handfuls.length; i++) {
-    const handful = game.handfuls[i];
-    minimum.red = Math.max(minimum.red, handful.red);
-    minimum.blue = Math.max(minimum.blue, handful.blue);
-    minimum.green = Math.max(minimum.green, handful.green);
-  }
   return minimum.red * minimum.blue * minimum.green;
 }
 
