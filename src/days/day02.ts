@@ -64,6 +64,21 @@ function isPossible(bag: Bag, game: Game): boolean {
   );
 }
 
+function power(game: Game): number {
+  const minimum = {
+    red: 0,
+    green: 0,
+    blue: 0,
+  };
+  for (let i = 0; i < game.handfuls.length; i++) {
+    const handful = game.handfuls[i];
+    minimum.red = Math.max(minimum.red, handful.red);
+    minimum.blue = Math.max(minimum.blue, handful.blue);
+    minimum.green = Math.max(minimum.green, handful.green);
+  }
+  return minimum.red * minimum.blue * minimum.green;
+}
+
 export function part1(): number {
   const games = readData();
   const bag = {
@@ -79,5 +94,6 @@ export function part1(): number {
 }
 
 export function part2(): number {
-  return 0;
+  const games = readData();
+  return games.reduce((prev, curr) => prev + power(curr), 0);
 }
