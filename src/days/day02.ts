@@ -1,4 +1,4 @@
-import { readFileSync } from "fs";
+import { readData } from "../data";
 
 class Handful {
   red: number = 0
@@ -48,8 +48,8 @@ class Game {
   }
 }
 
-function readData(): Game[] {
-  const lines = readFileSync('src/data/day02.txt', 'utf8').trim().split('\n');
+function readDataAsGames(partInt: number): Game[] {
+  const lines = readData(2, partInt);
   return lines.map(l => new Game(l));
 }
 
@@ -75,7 +75,7 @@ function power(game: Game): number {
 }
 
 export function part1(): number {
-  const games = readData();
+  const games = readDataAsGames(1);
   const bag = new Bag({
     red: 12,
     green: 13,
@@ -89,6 +89,6 @@ export function part1(): number {
 }
 
 export function part2(): number {
-  const games = readData();
+  const games = readDataAsGames(2);
   return games.reduce((prev, curr) => prev + power(curr), 0);
 }

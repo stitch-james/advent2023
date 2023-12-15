@@ -1,4 +1,4 @@
-import { readFileSync } from "fs";
+import { readData } from "../data";
 
 function includesSymbol(str: string): boolean {
   const notSymbols = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '.'];
@@ -16,7 +16,7 @@ function findNeighbours(asterisk: RegExpMatchArray, line: string) {
 }
 
 export function part1(): number {
-  const lines = readFileSync('src/data/day03.txt', 'utf8').trim().split('\n');
+  const lines = readData(3, 1);
   let total = 0;
   for (let i = 0; i < lines.length; i++) {
     const firstLine = i === 0;
@@ -42,7 +42,7 @@ export function part1(): number {
 }
 
 export function part2(): number {
-  const lines = readFileSync('src/data/day03.txt', 'utf8').trim().split('\n');
+  const lines = readData(3, 2);
   let total = 0;
   for (let i = 0; i < lines.length; i++) {
     const firstLine = i === 0;

@@ -2,7 +2,16 @@ import * as day01 from "./days/day01";
 import * as day02 from "./days/day02";
 import * as day03 from "./days/day03";
 
-const days = [
+interface Part {
+  (): number,
+}
+
+export interface Day {
+  part1: Part,
+  part2: Part,
+}
+
+const days: Day[] = [
   day01,
   day02,
   day03,

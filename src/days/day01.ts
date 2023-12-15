@@ -1,19 +1,15 @@
-import { readFileSync } from "fs";
+import { readData } from "../data";
 
 export function part1(): number {
-  const data = readData();
+  const data = readData(1, 1);
   const calibrationValues = data.map(line => getCalibrationValue(line));
   return calibrationValues.reduce((a, c) => a + c, 0);
 }
 
 export function part2(): number {
-  const data = readData();
+  const data = readData(1, 2);
   const calibrationValues = data.map(line => getCalibrationValue(line, true));
   return calibrationValues.reduce((a, c) => a + c, 0);
-}
-
-function readData(): string[] {
-  return readFileSync('src/data/day01.txt', 'utf8').trim().split('\n');
 }
 
 function getCalibrationValue(line: string, includeWords: boolean = false): number {
