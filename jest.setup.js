@@ -1,1 +1,1 @@
-process.env.DATADIR = 'src/test-data';
+process.env.DATA_FILE_PREFIX = 'test-';

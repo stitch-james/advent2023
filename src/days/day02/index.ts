@@ -1,4 +1,4 @@
-import { readData } from "../data";
+import { readData } from "../../data";
 
 class Handful {
   red: number = 0

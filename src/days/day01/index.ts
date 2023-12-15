@@ -1,4 +1,4 @@
-import { readData } from "../data";
+import { readData } from "../../data";
 
 export function part1(): number {
   const data = readData(1, 1);
