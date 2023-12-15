@@ -1,6 +1,7 @@
 import * as day01 from "./days/day01";
 import * as day02 from "./days/day02";
 import * as day03 from "./days/day03";
+import * as day04 from "./days/day04";
 
 interface Part {
   (): number,
@@ -15,6 +16,7 @@ export const days: Day[] = [
   day01,
   day02,
   day03,
+  day04,
 ];
 
 if (require.main === module) {
